@@ -159,9 +159,10 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (password) => password!.isNotEmpty && password != _controllerPassword.text
-                    ? "Re-Entered Password is differnet from Password "
-                    : null,
+                validator: (password) =>
+                    password!.isNotEmpty && password != _controllerPassword.text
+                        ? "Re-Entered Password is differnet from Password "
+                        : null,
               ),
               const SizedBox(height: 50),
               Column(
@@ -216,10 +217,18 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  // final isValid = _formKey.currentState!.validate();
+  // if (!isValid==false) {
+  //   print("Invalid Form");
+  //   return;
+  // }
   Future signUp() async {
-    // final isValid = _formKey.currentState!.validate();
-    // if (!isValid==false) {
+    //       final isValid = _formKey.currentState!.validate();
+    // if (!isValid) {
     //   print("Invalid Form");
+    //   return;
+    // }
+    // if (_formKey.currentState?.validate() ?? true) {
     //   return;
     // }
     showDialog(
@@ -235,11 +244,10 @@ class _SignupScreenState extends State<SignupScreen> {
       Utils.showSnackBar(e.message);
 
       print(e);
-    } 
-          Navigator.of(context).popUntil((route) => route.isFirst);
+    }
+    Navigator.of(context).popUntil((route) => route.isFirst);
 
-      // navigatorKey.currentState!.popUntil((route) => route.isFirst);
-      // print("Yooo");
-    
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    // print("Yooo");
   }
 }
