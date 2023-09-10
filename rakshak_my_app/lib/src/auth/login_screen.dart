@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rakshak_my_app/main.dart';
+import 'package:rakshak_my_app/src/auth/forgot_password.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
 // import 'package:rakshak_my_app/auth/login_firebase.dart';
 
@@ -99,6 +100,22 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   return null;
                 },
+              ),
+              // const SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ForgotPassword()));
+                      },
+                      child: const Text(
+                        "Forgot Password",
+                      )),
+                ],
               ),
               const SizedBox(height: 60),
               Column(
