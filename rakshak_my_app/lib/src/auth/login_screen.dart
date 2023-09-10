@@ -1,4 +1,9 @@
+// ignore_for_file: avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rakshak_my_app/main.dart';
+// import 'package:rakshak_my_app/auth/login_firebase.dart';
 
 import 'signup_screen.dart';
 // import 'package:rakshak_app/src/auth/signup_screen.dart';
@@ -14,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   final FocusNode _focusNodePassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   bool _obscurePassword = true;
 
@@ -40,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 60),
               TextFormField(
-                controller: _controllerUsername,
+                controller: _controllerEmail,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   labelText: "Username",
@@ -104,21 +109,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        // _boxLogin.put("loginStatus", true);
-                        // _boxLogin.put("userName", _controllerUsername.text);
+                    onPressed: signIn,
+                    // onPressed: () {
+                    //   if (_formKey.currentState?.validate() ?? false) {
+                    //     // _boxLogin.put("loginStatus", true);
+                    //     // _boxLogin.put("userName", _controllerUsername.text);
 
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) {
-                        //       return Home();
-                        //     },
-                        //   ),
-                        // );
-                      }
-                    },
+                    //     // Navigator.pushReplacement(
+                    //     //   context,
+                    //     //   MaterialPageRoute(
+                    //     //     builder: (context) {
+                    //     //       return Home();
+                    //     //     },
+                    //     //   ),
+                    //     // );
+                    //   }
+                    // },
                     child: const Text("Login"),
                   ),
                   Row(
@@ -149,5 +155,22 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future signIn() async {
+    // print('Hellllllllllllllllllllll');
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _controllerEmail.text.trim(),
+          password: _controllerPassword.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }
