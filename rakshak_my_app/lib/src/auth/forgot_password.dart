@@ -1,4 +1,11 @@
+// ignore_for_file: avoid_print, unused_import, use_build_context_synchronously
+
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../main.dart';
+import '../util/utils.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
@@ -8,7 +15,7 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-    final GlobalKey<FormState> _formKey = GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _controllerEmail = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -27,30 +34,38 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               children: [
                 TextFormField(
                   controller: _controllerEmail,
+                  // focusNode: _focusNodeEmail,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    // fillColor: Colors.white,
-                    prefixIcon: const Icon(Icons.email),
+                    labelText: "Email",
+                    prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email.';
-                    }
-                    // Add additional email validation if needed.
-                    return null;
-                  },
+                  // validator: (String? value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return "Please enter email.";
+                  //   } else if (!(value.contains('@') && value.contains('.'))) {
+                  //     return "Invalid email";
+                  //   }
+                  //   return null;
+                  // },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email) => email!.isNotEmpty &&
+                          !EmailValidator.validate(email.toString())
+                      ? "Enter Valid Email "
+                      : null,
+
+                  // onEditingComplete: () => _focusNodePassword.requestFocus(),
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
-                    // Add logic to send password reset instructions here
-                    // You can use _controllerEmail.text to get the entered email.
-                  },
-                  child: const Text('Send Reset Link'),
+                  onPressed: verifyEmail,
+                  child: const Text('Reset Password'),
                 ),
               ],
             ),
@@ -58,5 +73,25 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
       ),
     );
+  }
+
+  Future verifyEmail() async {
+    // if(_formKey.isV)
+    // if (_formKey.currentState!.validate() == false) return;
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: _controllerEmail.text.trim());
+      Utils.showSnackBar("Check Your Registered Email");
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Utils.showSnackBar(e.message);
+      Navigator.of(context).pop();
+    }
   }
 }
