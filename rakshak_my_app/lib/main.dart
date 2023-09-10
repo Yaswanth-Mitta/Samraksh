@@ -1,8 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:rakshak_my_app/src/auth/login_screen.dart';
 import 'package:rakshak_my_app/firebase_options.dart';
+import 'package:rakshak_my_app/src/auth/verifyemail.dart';
 import 'package:rakshak_my_app/src/home/home_screen.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
 
@@ -60,7 +63,7 @@ class _MainPageState extends State<MainPage> {
               child: Text("Something went wrong"),
             );
           } else if (snapshot.hasData) {
-            return const HomeScreen();
+            return const VerifyEmailScreen();
           } else {
             return const LoginScreen();
           }
