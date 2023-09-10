@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rakshak_my_app/main.dart';
+import 'package:rakshak_my_app/src/util/utils.dart';
 // import 'package:rakshak_my_app/auth/login_firebase.dart';
 
 import 'signup_screen.dart';
@@ -169,6 +170,8 @@ class _LoginScreenState extends State<LoginScreen> {
           email: _controllerEmail.text.trim(),
           password: _controllerPassword.text.trim());
     } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
+
       print(e);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

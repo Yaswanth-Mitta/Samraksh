@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rakshak_my_app/src/auth/login_screen.dart';
 import 'package:rakshak_my_app/firebase_options.dart';
 import 'package:rakshak_my_app/src/home/home_screen.dart';
+import 'package:rakshak_my_app/src/util/utils.dart';
 
 // void main() {
 //   runApp(const MyApp());
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         navigatorKey: navigatorKey,
+        scaffoldMessengerKey: Utils.messengerKey,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
