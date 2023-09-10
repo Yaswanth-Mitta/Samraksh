@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rakshak_my_app/src/auth/login_screen.dart';
 import 'package:rakshak_my_app/src/home/home_screen.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
 
@@ -15,6 +14,7 @@ class VerifyEmailScreen extends StatefulWidget {
 
 class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
   bool isEmailVerified = false;
+  bool canResendEmail = false;
   Timer? timer;
   @override
   void initState() {
@@ -47,6 +47,9 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     try {
       final user = FirebaseAuth.instance.currentUser!;
       await user.sendEmailVerification();
+      setState(() => canResendEmail = false);
+      await Future.delayed(const Duration(seconds: 5));
+      setState(() => canResendEmail = true);
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
     }
@@ -58,26 +61,52 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       : Scaffold(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           appBar: AppBar(
-            leading: InkWell(
-              child: const Icon(Icons.arrow_back_ios_new),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
-              },
-            ),
+            
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
-              "Verify Email",
+              "Email Verification",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
-          body: Center(
-            child: Text(
-              "Please check your email for a verification link.",
-              style: Theme.of(context).textTheme.bodyMedium,
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 150),
+                Text(
+                  "Verify Email",
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Please check your email for a Verification Mail.",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                // const SizedBox(height: 60),
+                const SizedBox(height: 40),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  onPressed: canResendEmail ? sendVerificationEmail : null,
+                  child: const Text("Reset password"),
+                ),
+                // InkWell(
+                //   onTap: ()=> FirebaseAuth.instance.signOut(),
+                //   child: const Text("Cancel"),
+                // )
+                const SizedBox(height: 15,),
+                TextButton(
+                      onPressed:  ()=> FirebaseAuth.instance.signOut(),
+                        
+                      child: const Text(
+                        "Forgot Password",
+                      )),
+              ],
             ),
           ),
         );
