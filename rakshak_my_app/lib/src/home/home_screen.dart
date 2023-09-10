@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("sign In as ${user.email!} "),
+            
             ElevatedButton(onPressed: () =>FirebaseAuth.instance.signOut(), child: const Text("Sign Out")),
           ],
         ),

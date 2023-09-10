@@ -1,4 +1,10 @@
+// ignore_for_file: avoid_print
+
+import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:rakshak_my_app/main.dart';
+import 'package:rakshak_my_app/src/util/utils.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -8,17 +14,17 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-    final GlobalKey<FormState> _formKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
 
   final FocusNode _focusNodeEmail = FocusNode();
   final FocusNode _focusNodePassword = FocusNode();
   final FocusNode _focusNodeConfirmPassword = FocusNode();
-  final TextEditingController _controllerUsername = TextEditingController();
+  // final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerConFirmPassword =
       TextEditingController();
-    bool _obscurePassword = true;
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -41,28 +47,28 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 35),
-              TextFormField(
-                controller: _controllerUsername,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  labelText: "Username",
-                  prefixIcon: const Icon(Icons.person_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter username.";
-                  }
+              // TextFormField(
+              //   controller: _controllerUsername,
+              //   keyboardType: TextInputType.name,
+              //   decoration: InputDecoration(
+              //     labelText: "Username",
+              //     prefixIcon: const Icon(Icons.person_outline),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              //   validator: (String? value) {
+              //     if (value == null || value.isEmpty) {
+              //       return "Please enter username.";
+              //     }
 
-                  return null;
-                },
-                onEditingComplete: () => _focusNodeEmail.requestFocus(),
-              ),
+              //     return null;
+              //   },
+              //   onEditingComplete: () => _focusNodeEmail.requestFocus(),
+              // ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _controllerEmail,
@@ -78,14 +84,20 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter email.";
-                  } else if (!(value.contains('@') && value.contains('.'))) {
-                    return "Invalid email";
-                  }
-                  return null;
-                },
+                // validator: (String? value) {
+                //   if (value == null || value.isEmpty) {
+                //     return "Please enter email.";
+                //   } else if (!(value.contains('@') && value.contains('.'))) {
+                //     return "Invalid email";
+                //   }
+                //   return null;
+                // },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (email) => email!.isNotEmpty &&
+                        !EmailValidator.validate(email.toString())
+                    ? "Enter Valid Email "
+                    : null,
+
                 onEditingComplete: () => _focusNodePassword.requestFocus(),
               ),
               const SizedBox(height: 10),
@@ -113,14 +125,11 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter password.";
-                  } else if (value.length < 8) {
-                    return "Password must be at least 8 character.";
-                  }
-                  return null;
-                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (password) =>
+                    password!.isNotEmpty && password.length < 6
+                        ? "Password Must be atleast 6 Chars "
+                        : null,
                 onEditingComplete: () =>
                     _focusNodeConfirmPassword.requestFocus(),
               ),
@@ -149,14 +158,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter password.";
-                  } else if (value != _controllerPassword.text) {
-                    return "Password doesn't match.";
-                  }
-                  return null;
-                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (password) => password!.isNotEmpty && password != _controllerPassword.text
+                    ? "Re-Entered Password is differnet from Password "
+                    : null,
               ),
               const SizedBox(height: 50),
               Column(
@@ -168,28 +173,28 @@ class _SignupScreenState extends State<SignupScreen> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        
+                    // onPressed: () {
+                    //   if (_formKey.currentState?.validate() ?? false) {
 
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            width: 200,
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                            content: const Text("Registered Successfully"),
-                          ),
-                        );
+                    //     ScaffoldMessenger.of(context).showSnackBar(
+                    //       SnackBar(
+                    //         width: 200,
+                    //         backgroundColor:
+                    //             Theme.of(context).colorScheme.secondary,
+                    //         shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.circular(10),
+                    //         ),
+                    //         behavior: SnackBarBehavior.floating,
+                    //         content: const Text("Registered Successfully"),
+                    //       ),
+                    //     );
 
-                        _formKey.currentState?.reset();
+                    //     _formKey.currentState?.reset();
 
-                        Navigator.pop(context);
-                      }
-                    },
+                    //     Navigator.pop(context);
+                    //   }
+                    // },
+                    onPressed: signUp,
                     child: const Text("Register"),
                   ),
                   Row(
@@ -209,5 +214,30 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
       ),
     );
+  }
+
+  Future signUp() async {
+    final isValid = _formKey.currentState!.validate();
+    if (!isValid) {
+      print("Invalid Form");
+      return;
+    }
+    showDialog(
+        context: context,
+        builder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ));
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _controllerEmail.text.trim(),
+          password: _controllerPassword.text.trim());
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
+
+      print(e);
+    } 
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      // print("Yooo");
+    
   }
 }
