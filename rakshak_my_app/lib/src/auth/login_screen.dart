@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously, unused_import
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -177,6 +177,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     // print('Hellllllllllllllllllllll');
+      final isValid = _formKey.currentState!.validate();
+    if (!isValid) {
+      print("Invalid Form");
+      return;
+    }
     showDialog(
         context: context,
         builder: (context) => const Center(
@@ -191,6 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       print(e);
     }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

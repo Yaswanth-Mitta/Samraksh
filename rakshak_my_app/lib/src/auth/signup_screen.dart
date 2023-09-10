@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import, use_build_context_synchronously
 
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -217,11 +217,11 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Future signUp() async {
-    final isValid = _formKey.currentState!.validate();
-    if (!isValid) {
-      print("Invalid Form");
-      return;
-    }
+    // final isValid = _formKey.currentState!.validate();
+    // if (!isValid==false) {
+    //   print("Invalid Form");
+    //   return;
+    // }
     showDialog(
         context: context,
         builder: (context) => const Center(
@@ -236,7 +236,9 @@ class _SignupScreenState extends State<SignupScreen> {
 
       print(e);
     } 
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+          Navigator.of(context).popUntil((route) => route.isFirst);
+
+      // navigatorKey.currentState!.popUntil((route) => route.isFirst);
       // print("Yooo");
     
   }
