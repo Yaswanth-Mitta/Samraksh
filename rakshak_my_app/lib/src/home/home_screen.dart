@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       
       backgroundColor: Colors.yellowAccent,
-      appBar: AppBar(title: const Text("Home Screen"),),
+      // appBar: AppBar(title: const Text("Home Screen"),),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,3 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:rakshak_my_app/src/auth/login_screen.dart';
 import 'package:rakshak_my_app/firebase_options.dart';
 import 'package:rakshak_my_app/src/auth/verifyemail.dart';
+import 'package:rakshak_my_app/src/home/hidden_draw.dart';
 import 'package:rakshak_my_app/src/home/home_screen.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
 
@@ -64,6 +65,7 @@ class _MainPageState extends State<MainPage> {
             );
           } else if (snapshot.hasData) {
             return const VerifyEmailScreen();
+            // return const HiddenDrawer();
           } else {
             return const LoginScreen();
           }
