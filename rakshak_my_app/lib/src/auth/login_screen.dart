@@ -128,21 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: signIn,
-                    // onPressed: () {
-                    //   if (_formKey.currentState?.validate() ?? false) {
-                    //     // _boxLogin.put("loginStatus", true);
-                    //     // _boxLogin.put("userName", _controllerUsername.text);
-
-                    //     // Navigator.pushReplacement(
-                    //     //   context,
-                    //     //   MaterialPageRoute(
-                    //     //     builder: (context) {
-                    //     //       return Home();
-                    //     //     },
-                    //     //   ),
-                    //     // );
-                    //   }
-                    // },
+                  
                     child: const Text("Login"),
                   ),
                   Row(

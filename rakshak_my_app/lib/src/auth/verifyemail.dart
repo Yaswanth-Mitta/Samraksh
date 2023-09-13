@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:rakshak_my_app/src/home/home_screen.dart';
+// import 'package:rakshak_my_app/src/home/home_screen.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
+
+import '../home/hidden_draw.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});
@@ -57,7 +59,8 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
 
   @override
   Widget build(BuildContext context) => isEmailVerified
-      ? const HomeScreen()
+      // ? const HomeScreen()
+      ? const HiddenDrawer()
       : Scaffold(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           appBar: AppBar(
