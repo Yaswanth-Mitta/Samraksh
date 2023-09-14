@@ -96,7 +96,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     ),
                   ),
                   onPressed: canResendEmail ? sendVerificationEmail : null,
-                  child: const Text("Reset password"),
+                  child: const Text("Resend verification email"),
                 ),
                 // InkWell(
                 //   onTap: ()=> FirebaseAuth.instance.signOut(),
@@ -107,7 +107,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       onPressed:  ()=> FirebaseAuth.instance.signOut(),
                         
                       child: const Text(
-                        "Forgot Password",
+                        "Cancel",
                       )),
               ],
             ),

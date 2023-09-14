@@ -46,7 +46,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
               baseStyle: myTextStylebase,
               selectedStyle: selectedTextStyle,
               colorLineSelected: Colors.white),
-          const AddEmailScreen()),
+          const AddEmergencyEmailsScreen()),
     ];
   }
 

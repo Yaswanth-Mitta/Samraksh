@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _controllerEmail,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
-                  labelText: "Username",
+                  labelText: "Email",
                   prefixIcon: const Icon(Icons.person_outline),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onEditingComplete: () => _focusNodePassword.requestFocus(),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter username.";
+                    return "Please enter email .";
                   }
 
                   return null;

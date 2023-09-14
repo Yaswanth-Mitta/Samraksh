@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, unused_import, use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,25 @@ class _SignupScreenState extends State<SignupScreen> {
   final FocusNode _focusNodeEmail = FocusNode();
   final FocusNode _focusNodePassword = FocusNode();
   final FocusNode _focusNodeConfirmPassword = FocusNode();
-  // final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllerUsername = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerAddress = TextEditingController();
+  final TextEditingController _controllerGender = TextEditingController();
   final TextEditingController _controllerConFirmPassword =
       TextEditingController();
   bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerAddress.dispose();
+    _controllerConFirmPassword.dispose();
+    _controllerEmail.dispose();
+    _controllerGender.dispose();
+    _controllerPassword.dispose();
+    _controllerUsername.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +50,7 @@ class _SignupScreenState extends State<SignupScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 30.0),
           child: Column(
             children: [
-              const SizedBox(height: 100),
+              const SizedBox(height: 50),
               Text(
                 "Register",
                 style: Theme.of(context).textTheme.headlineLarge,
@@ -47,28 +61,75 @@ class _SignupScreenState extends State<SignupScreen> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 35),
-              // TextFormField(
-              //   controller: _controllerUsername,
-              //   keyboardType: TextInputType.name,
-              //   decoration: InputDecoration(
-              //     labelText: "Username",
-              //     prefixIcon: const Icon(Icons.person_outline),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //     enabledBorder: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //     ),
-              //   ),
-              //   validator: (String? value) {
-              //     if (value == null || value.isEmpty) {
-              //       return "Please enter username.";
-              //     }
+              TextFormField(
+                controller: _controllerUsername,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: "Username",
+                  prefixIcon: const Icon(Icons.person_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter username.";
+                  }
 
-              //     return null;
-              //   },
-              //   onEditingComplete: () => _focusNodeEmail.requestFocus(),
-              // ),
+                  return null;
+                },
+                onEditingComplete: () => _focusNodeEmail.requestFocus(),
+              ),
+              const SizedBox(height: 10),
+
+              TextFormField(
+                controller: _controllerGender,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: "Gender",
+                  prefixIcon: const Icon(Icons.male_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter username.";
+                  }
+
+                  return null;
+                },
+                onEditingComplete: () => _focusNodeEmail.requestFocus(),
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: _controllerAddress,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: "Address",
+                  prefixIcon: const Icon(Icons.house_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your defalut Address.";
+                  }
+
+                  return null;
+                },
+                onEditingComplete: () => _focusNodeEmail.requestFocus(),
+              ),
               const SizedBox(height: 10),
               TextFormField(
                 controller: _controllerEmail,
@@ -84,23 +145,17 @@ class _SignupScreenState extends State<SignupScreen> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                // validator: (String? value) {
-                //   if (value == null || value.isEmpty) {
-                //     return "Please enter email.";
-                //   } else if (!(value.contains('@') && value.contains('.'))) {
-                //     return "Invalid email";
-                //   }
-                //   return null;
-                // },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) => email!.isNotEmpty &&
                         !EmailValidator.validate(email.toString())
                     ? "Enter Valid Email "
                     : null,
-
                 onEditingComplete: () => _focusNodePassword.requestFocus(),
               ),
               const SizedBox(height: 10),
+//
+              // Password
+//
               TextFormField(
                 controller: _controllerPassword,
                 obscureText: _obscurePassword,
@@ -221,16 +276,55 @@ class _SignupScreenState extends State<SignupScreen> {
   // if (!isValid==false) {
   //   print("Invalid Form");
   //   return;
+  //       final isValid = _formKey.currentState!.validate();
+  // if (!isValid) {
+  //   print("Invalid Form");
+  //   return;
   // }
+  // if (_formKey.currentState?.validate() ?? true) {
+  //   return;
+  // }
+  // }
+//   Future signUp() async {
+//     showDialog(
+//         context: context,
+//         builder: (context) => const Center(
+//               child: CircularProgressIndicator(),
+//             ));
+//     try {
+//       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+//           email: _controllerEmail.text.trim(),
+//           password: _controllerPassword.text.trim());
+//       await addUserDetails(
+//         _controllerUsername.text.trim(),
+//         _controllerGender.text.trim(),
+//         _controllerAddress.text.trim(),
+//         _controllerEmail.text.trim(),
+//       );
+//     } on FirebaseAuthException catch (e) {
+//       Utils.showSnackBar(e.message);
+//     }
+
+//     Navigator.of(context).popUntil((route) => route.isFirst);
+//     // navigatorKey.currentState!.popUntil((route) => route.isFirst);
+//   }
+
+//   Future<void> addUserDetails(
+//     String username, String gender, String address, String email) async {
+//   try {
+//     await FirebaseFirestore.instance.collection('users').add({
+//       'user name': username,
+//       'gender': gender,
+//       'address': address,
+//       'email': email,
+//       'emergencymails' : []
+//     });
+//   } catch (e) {
+//     print('Error adding user details: $e');
+//   }
+// }
+
   Future signUp() async {
-    //       final isValid = _formKey.currentState!.validate();
-    // if (!isValid) {
-    //   print("Invalid Form");
-    //   return;
-    // }
-    // if (_formKey.currentState?.validate() ?? true) {
-    //   return;
-    // }
     showDialog(
         context: context,
         builder: (context) => const Center(
@@ -240,14 +334,33 @@ class _SignupScreenState extends State<SignupScreen> {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _controllerEmail.text.trim(),
           password: _controllerPassword.text.trim());
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'user name': _controllerUsername.text.trim(),
+        'gender': _controllerGender.text.trim(),
+        'address': _controllerAddress.text.trim(),
+        'email': _controllerEmail.text.trim(),
+      });
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
-
-      print(e);
     }
-    Navigator.of(context).popUntil((route) => route.isFirst);
 
+    Navigator.of(context).popUntil((route) => route.isFirst);
     // navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    // print("Yooo");
+  }
+
+  Future<void> addUserDetails(
+      String username, String gender, String address, String email) async {
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'user name': username,
+        'gender': gender,
+        'address': address,
+        'email': email,
+      });
+    } catch (e) {
+      print('Error adding user details: $e');
+    }
   }
 }
