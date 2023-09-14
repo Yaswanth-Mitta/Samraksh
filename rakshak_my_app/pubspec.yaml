@@ -36,6 +36,7 @@ dependencies:
   firebase_core: ^2.15.1
   flutter:
     sdk: flutter
+  geolocator: ^10.0.1
   hidden_drawer_menu: ^3.0.1
   http: ^1.1.0
 

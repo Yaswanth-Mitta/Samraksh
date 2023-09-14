@@ -48,12 +48,17 @@
 // import 'dart:convert';
 // import 'dart:io';
 
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_local_variable
+
+// import 'dart:html';
 
 import 'package:emailjs/emailjs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../util/utils.dart';
 // import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -62,6 +67,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+// {{latitude}},{{longitude}}
+// template_6tjkn5i
 
 class _HomeScreenState extends State<HomeScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -70,6 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
   // Variables to store the data from Firestore
   Map<String, dynamic> userData = {};
   List<dynamic> emergencyEmails = [];
+  late double latt;
+  late double long;
 
   @override
   void initState() {
@@ -113,6 +122,30 @@ class _HomeScreenState extends State<HomeScreen> {
       {required String name,
       required List<dynamic> emails,
       required String message}) async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (!serviceEnabled) {
+    //   Utils.showSnackBar("user Location Disabled");
+    // }
+    try {
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+      }
+      // if(permission == LocationPermission.denied){
+
+      // }
+      await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      ).then((position) {
+        // Get the latitude and longitude
+        latt = position.latitude;
+        long = position.longitude;
+      });
+    } catch (e) {
+      print(e.toString());
+      Utils.showSnackBar(e.toString());
+    }
+
     try {
       await EmailJS.send(
         'service_8kxfswe', // Replace with your service ID
@@ -121,8 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
           'from_name': name,
           'user_email': userData['email'],
           'to_email': emails,
-          'lattitude': '',
-          'longitude': ""
+          'latitude': latt.toString(),
+          'longitude': long.toString()
         },
         const Options(
           publicKey: 'bYbVtyqCG1D2owsR_', // Replace with your public key
