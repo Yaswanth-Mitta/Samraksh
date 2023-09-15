@@ -40,6 +40,14 @@ dependencies:
   hidden_drawer_menu: ^3.0.1
   http: ^1.1.0
 
+  flutter_native_splash: ^2.3.2
+
+flutter_native_splash:
+  color: "#000000"
+  android: true
+  ios: true
+
+
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
@@ -54,7 +62,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
+  assets:
+    - assets/logo.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
