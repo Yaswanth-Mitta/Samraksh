@@ -136,6 +136,12 @@ class _AddEmergencyEmailsScreenState extends State<AddEmergencyEmailsScreen> {
     if (email.isEmpty) {
       return;
     }
+    if (_emails.contains(email)) {
+      Utils.showSnackBar("Email Already exists");
+      _controllerEmail.clear();
+
+      return;
+    }
     if (!EmailValidator.validate(email)) {
       Utils.showSnackBar("Enter Valid Email Address");
       return;

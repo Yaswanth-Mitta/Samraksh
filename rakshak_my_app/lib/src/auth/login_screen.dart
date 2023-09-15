@@ -47,13 +47,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 60),
               TextFormField(
-                
                 controller: _controllerEmail,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
-                  
                   labelText: "Email",
                   prefixIcon: const Icon(Icons.person_outline),
                   border: OutlineInputBorder(
