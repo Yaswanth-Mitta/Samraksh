@@ -38,8 +38,13 @@ The development roadmap for the Samraksh App includes:
 
 - Enhancing the user interface and experience.
 - Adding real-time location tracking for safety alerts.
-- Integrating more communication channels for alerts (e.g., SMS, notifications).
+- Integrating more communication channels for alerts (e.g., SMS, Emails(active)).
 - Extending platform support (iOS, Android).
+
+## Try the Android Version 
+ - [Download the Samraksh Android APK](https://github.com/Yaswanth-Mitta/Samraksh-/blob/main/rakshak_my_app/app_builds/Samraksh.apk)
+
+
 
 ## Feedback and Support
 
