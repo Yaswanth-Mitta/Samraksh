@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -47,9 +47,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 60),
               TextFormField(
+                
                 controller: _controllerEmail,
                 keyboardType: TextInputType.name,
                 decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  
                   labelText: "Email",
                   prefixIcon: const Icon(Icons.person_outline),
                   border: OutlineInputBorder(
@@ -68,13 +72,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 10),
+
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _controllerPassword,
                 focusNode: _focusNodePassword,
                 obscureText: _obscurePassword,
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
+                  focusColor: Colors.black26,
                   labelText: "Password",
                   prefixIcon: const Icon(Icons.password_outlined),
                   suffixIcon: IconButton(
@@ -101,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   return null;
                 },
               ),
+
               // const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -114,6 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       child: const Text(
                         "Forgot Password",
+                        style: TextStyle(color: Colors.white),
                       )),
                 ],
               ),
@@ -128,7 +136,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: signIn,
-                  
                     child: const Text("Login"),
                   ),
                   Row(
@@ -163,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future signIn() async {
     // print('Hellllllllllllllllllllll');
-      final isValid = _formKey.currentState!.validate();
+    final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       print("Invalid Form");
       return;
