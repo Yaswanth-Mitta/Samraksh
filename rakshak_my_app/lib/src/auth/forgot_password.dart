@@ -3,6 +3,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:rakshak_my_app/src/util/mytextformfield.dart';
 
 import '../../main.dart';
 import '../util/utils.dart';
@@ -15,6 +17,8 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  final FocusNode _focusNodeemail = FocusNode();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
   final TextEditingController _controllerEmail = TextEditingController();
   // @override
@@ -83,8 +87,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             print("called");
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => const MainPage()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const MainPage()));
           },
         ),
         title: const Text("Reset Password"),
@@ -106,32 +110,37 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 60),
-              TextFormField(
-                controller: _controllerEmail,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: "Email Address",
-                  prefixIcon: const Icon(Icons.email_outlined),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onEditingComplete: () => verifyEmail(),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return "Please enter email address.";
-                  }
+              // TextFormField(
+              //   controller: _controllerEmail,
+              //   keyboardType: TextInputType.emailAddress,
+              //   decoration: InputDecoration(
+              //     labelText: "Email Address",
+              //     prefixIcon: const Icon(Icons.email_outlined),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //     ),
+              //   ),
+              //   onEditingComplete: () => verifyEmail(),
+              //   validator: (String? value) {
+              //     if (value == null || value.isEmpty) {
+              //       return "Please enter email address.";
+              //     }
 
-                  if (!value.contains("@")) {
-                    return "Please enter a valid email address.";
-                  }
+              //     if (!value.contains("@")) {
+              //       return "Please enter a valid email address.";
+              //     }
 
-                  return null;
-                },
-              ),
+              //     return null;
+              //   },
+              // ),
+              EmailInputField(
+                  controller: _controllerEmail,
+                  nextFocusNode: _focusNodeemail,
+                  prefixIcon: const Icon(Icons.mail_outlined),
+                  labelText: 'EMail'),
               const SizedBox(height: 40),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -141,7 +150,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   ),
                 ),
                 onPressed: verifyEmail,
-                child: const Text("Reset password"),
+                child: Text(
+                  "Reset password",
+                  style: GoogleFonts.aBeeZee(
+                      textStyle: Theme.of(context).textTheme.bodyMedium,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+                      color: Colors.black),
+                ),
               ),
             ],
           ),
