@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rakshak_my_app/src/util/mytextformfield.dart';
 
 import '../util/utils.dart';
 
@@ -58,26 +59,37 @@ class _AddEmergencyEmailsScreenState extends State<AddEmergencyEmailsScreen> {
         padding: const EdgeInsets.all(30.0),
         child: Column(
           children: [
-            TextFormField(
+            // TextFormField(
+            //   controller: _controllerEmail,
+            //   focusNode: focusNodeEmail,
+            //   keyboardType: TextInputType.emailAddress,
+            //   decoration: InputDecoration(
+            //     labelText: "Email",
+            //     prefixIcon: const Icon(Icons.email_outlined),
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     enabledBorder: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //   ),
+            //   autovalidateMode: AutovalidateMode.onUserInteraction,
+            //   validator: (email) => email!.isNotEmpty &&
+            //           !EmailValidator.validate(email.toString())
+            //       ? "Enter Valid Email "
+            //       : null,
+            //   // onEditingComplete: () => focusNodePassword.requestFocus(),
+            // ),
+            EmailInputField(
               controller: _controllerEmail,
-              focusNode: focusNodeEmail,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                labelText: "Email",
-                prefixIcon: const Icon(Icons.email_outlined),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              nextFocusNode: focusNodeEmail,
+              labelText: "Emergency Email", // Provide the label text
+              prefixIcon:
+                  const Icon(Icons.mail_outlined), // Provide the prefix icon
               validator: (email) => email!.isNotEmpty &&
                       !EmailValidator.validate(email.toString())
                   ? "Enter Valid Email "
                   : null,
-              // onEditingComplete: () => focusNodePassword.requestFocus(),
             ),
             const SizedBox(height: 20),
             ElevatedButton(

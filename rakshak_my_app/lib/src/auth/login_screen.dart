@@ -4,7 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rakshak_my_app/main.dart';
 import 'package:rakshak_my_app/src/auth/forgot_password.dart';
+import 'package:rakshak_my_app/src/util/mypasswordformfield.dart';
+import 'package:rakshak_my_app/src/util/mytextformfield.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 // import 'package:rakshak_my_app/auth/login_firebase.dart';
 
 import 'signup_screen.dart';
@@ -23,45 +27,57 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode _focusNodePassword = FocusNode();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
-              const SizedBox(height: 150),
-              Text(
-                "Welcome back",
-                style: Theme.of(context).textTheme.headlineLarge,
+              // const SizedBox(height: 150),
+              // Text(
+              //   "Welcome back",
+              //   style: Theme.of(context).textTheme.headlineLarge,
+              // ),
+              // const SizedBox(height: 10),
+              // Text(
+              //   "Login to your account",
+              //   style: Theme.of(context).textTheme.bodyMedium,
+              // ),
+              // Text(
+              //   "Welcome ", // Change to your desired welcome text
+              //   style: GoogleFonts.lugrasimo(
+              //     textStyle: Theme.of(context).textTheme.titleMedium,
+              //     fontWeight: FontWeight.bold,
+              //     fontSize: 30
+              //   ),
+              // ),
+              const SizedBox(height: 40), // Adjust the spacing
+              Image.asset(
+                "assets/l1.png", // Replace with your app logo asset path
+                // width: 400, // Adjust the width as needed
+                height: 200, // Adjust the height as needed
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20), // Add some spacing
+              const SizedBox(height: 10), // Add some spacing
               Text(
-                "Login to your account",
-                style: Theme.of(context).textTheme.bodyMedium,
+                "Login to your account", // Change to your desired subtext
+                style: GoogleFonts.lugrasimo(
+                    textStyle: Theme.of(context).textTheme.bodyMedium,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 20),
               ),
               const SizedBox(height: 60),
-              TextFormField(
+              EmailInputField(
                 controller: _controllerEmail,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  labelText: "Email",
-                  prefixIcon: const Icon(Icons.person_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onEditingComplete: () => _focusNodePassword.requestFocus(),
+                nextFocusNode: _focusNodePassword,
+                labelText: "Email", // Provide the label text
+                prefixIcon:
+                    const Icon(Icons.person_outline), // Provide the prefix icon
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return "Please enter email .";
@@ -72,36 +88,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
 
               const SizedBox(height: 20),
-              TextFormField(
+
+              PasswordInputField(
                 controller: _controllerPassword,
                 focusNode: _focusNodePassword,
-                obscureText: _obscurePassword,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                  focusColor: Colors.black26,
-                  labelText: "Password",
-                  prefixIcon: const Icon(Icons.password_outlined),
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _obscurePassword = !_obscurePassword;
-                        });
-                      },
-                      icon: _obscurePassword
-                          ? const Icon(Icons.visibility_outlined)
-                          : const Icon(Icons.visibility_off_outlined)),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+                labelText: "Password", // Customize the label text
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter password.";
+                    return "Please enter a password.";
                   }
-
+                  // You can add more password validation logic here if needed
                   return null;
                 },
               ),
@@ -117,9 +113,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             MaterialPageRoute(
                                 builder: (context) => const ForgotPassword()));
                       },
-                      child: const Text(
+                      child: Text(
                         "Forgot Password",
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer),
                       )),
                 ],
               ),
@@ -130,11 +129,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(50),
                       shape: RoundedRectangleBorder(
+                        side: const BorderSide(width: 2, color: Colors.white),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
                     onPressed: signIn,
-                    child: const Text("Login"),
+                    child: Text(
+                      "Login",
+                      style: GoogleFonts.aBeeZee(
+                          textStyle: Theme.of(context).textTheme.bodyMedium,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 20,
+                          color: Colors.black
+                          ),
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -153,7 +161,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         },
-                        child: const Text("Signup"),
+                        child: Text(
+                          "Signup",
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
+                        ),
                       ),
                     ],
                   ),

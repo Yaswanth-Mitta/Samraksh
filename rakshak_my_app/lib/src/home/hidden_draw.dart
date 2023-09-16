@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hidden_drawer_menu/hidden_drawer_menu.dart';
 import 'package:rakshak_my_app/src/sidebarpages/add_email.dart';
 import 'package:rakshak_my_app/src/sidebarpages/profile.dart';
@@ -15,12 +16,18 @@ class HiddenDrawer extends StatefulWidget {
 class _HiddenDrawerState extends State<HiddenDrawer> {
   List<ScreenHiddenDrawer> _pages = [];
 
-  final myTextStylebase = const TextStyle(
-      fontWeight: FontWeight.w400, fontSize: 18, color: Colors.black);
+  final myTextStylebase = GoogleFonts.k2d(
+      // textStyle: Theme.of(context).textTheme.bodyMedium,
+      fontWeight: FontWeight.normal,
+      fontSize: 20,
+      color: Colors.black);
 
   // final mySelectedText
-  final selectedTextStyle = const TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white);
+  final selectedTextStyle = GoogleFonts.k2d(
+      // textStyle: Theme.of(context).textTheme.bodyMedium,
+      fontWeight: FontWeight.normal,
+      fontSize: 22,
+      color: Colors.white);
 
   @override
   void initState() {
@@ -28,7 +35,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
     _pages = [
       ScreenHiddenDrawer(
           ItemHiddenMenu(
-              name: "HomePage",
+              name: "Home",
               baseStyle: myTextStylebase,
               selectedStyle: selectedTextStyle,
               colorLineSelected: Colors.white),

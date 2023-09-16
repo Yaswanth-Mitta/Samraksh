@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:rakshak_my_app/src/home/home_screen.dart';
 import 'package:rakshak_my_app/src/util/utils.dart';
 
@@ -64,7 +65,6 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       : Scaffold(
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           appBar: AppBar(
-            
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
@@ -96,19 +96,27 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                     ),
                   ),
                   onPressed: canResendEmail ? sendVerificationEmail : null,
-                  child: const Text("Resend verification email"),
+                  child: Text(
+                    "Resend verification email",
+                    style: GoogleFonts.aBeeZee(
+                        textStyle: Theme.of(context).textTheme.bodyMedium,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 20,
+                        color: Colors.black),
+                  ),
                 ),
                 // InkWell(
                 //   onTap: ()=> FirebaseAuth.instance.signOut(),
                 //   child: const Text("Cancel"),
                 // )
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 TextButton(
-                      onPressed:  ()=> FirebaseAuth.instance.signOut(),
-                        
-                      child: const Text(
-                        "Cancel",
-                      )),
+                    onPressed: () => FirebaseAuth.instance.signOut(),
+                    child: const Text(
+                      "Cancel",
+                    )),
               ],
             ),
           ),
