@@ -42,7 +42,8 @@ The development roadmap for the Samraksh App includes:
 - Extending platform support (iOS, Android).
 
 ## Try the Android Version 
- - [Download the Samraksh Android APK](https://github.com/Yaswanth-Mitta/Samraksh-/blob/main/rakshak_my_app/app_builds/Samraksh.apk)
+ <!-- - [Download the Samraksh Android APK](https://github.com/Yaswanth-Mitta/Samraksh-/blob/main/rakshak_my_app/app_builds/Samraksh.apk) -->
+ - [Download the Samraksh Android APK](https://drive.google.com/file/d/1rJtGFIQ1fr217wZfC3FBuAIIU-BU7pvI/view?usp=drive_link)
 
 
 
