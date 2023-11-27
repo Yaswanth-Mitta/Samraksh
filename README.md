@@ -47,7 +47,7 @@ The development roadmap for the Samraksh App includes:
 
 
 
-## Feedback and Support
+## Bugs and Issues
 
-We appreciate your interest in the Samraksh App. If you encounter issues, have suggestions, or need assistance, please contact [Yawanth Mitta](mailto:samrakshh@gmail.com).
+We are aware of the bugs and issues , we will try to fix them as soon as possible.
 
