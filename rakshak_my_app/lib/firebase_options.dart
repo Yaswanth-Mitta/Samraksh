@@ -46,8 +46,18 @@ class DefaultFirebaseOptions {
     }
   }
 
+
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAm4rdmn8BjbJkGsPYrlHSCwTkib2YzVB4',
+    // apiKey: <use_your_api_key_or contact for api key>,
+    appId: '1:100754056549:web:4f1be7b508b2625fa46d8c',
+    messagingSenderId: '100754056549',
+    projectId: 'rakshak-my-app',
+    authDomain: 'rakshak-my-app.firebaseapp.com',
+    storageBucket: 'rakshak-my-app.appspot.com',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    // apiKey: <use_your_api_key_or contact for api key>,
     appId: '1:100754056549:web:4f1be7b508b2625fa46d8c',
     messagingSenderId: '100754056549',
     projectId: 'rakshak-my-app',
@@ -56,7 +66,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBK_FrHOrDA_eHJp2i4aFlI5bFs_k48Gi8',
+    // apiKey: <use_your_api_key_or contact for api key>,
     appId: '1:100754056549:android:ec4cfb9fc77d7c52a46d8c',
     messagingSenderId: '100754056549',
     projectId: 'rakshak-my-app',
@@ -64,7 +74,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyASqHoP7xepeEhPWnOX4R8J-fiwL-uzZ8M',
+    // apiKey: <use_your_api_key_or contact for api key>,
     appId: '1:100754056549:ios:564980a0d2405fc7a46d8c',
     messagingSenderId: '100754056549',
     projectId: 'rakshak-my-app',
@@ -72,3 +82,7 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.example.rakshakMyApp',
   );
 }
+
+
+
+// AIzaSyAm4rdmn8BjbJkGsPYrlHSCwTkib2YzVB4  AIzaSyBK_FrHOrDA_eHJp2i4aFlI5bFs_k48Gi8 AIzaSyASqHoP7xepeEhPWnOX4R8J-fiwL-uzZ8M
